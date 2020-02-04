@@ -1,12 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '../../styles/App.css';
+
+import withStyles from 'react-jss';
+import { styles } from './styles';
 
 const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+       
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -23,4 +25,4 @@ const App = () => {
   );
 }
 
-export default App;
+export const AppWithStyles = withStyles(styles)(App);
