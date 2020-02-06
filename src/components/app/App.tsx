@@ -1,19 +1,21 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom'
-import '../../styles/App.css';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+// import { ThemeProvider } from 'react-jss';
+// import theme from '../../theme.config';
+// import '../../styles/App.css';
 
-import withStyles from 'react-jss';
-import { styles } from './styles';
+// import withStyles from 'react-jss';
+// import { styles } from './styles';
 
 import CreateLink from '../createlink/CreateLink'
 import LinkList from '../linklist/LinkList'
 import Header from '../header/Header'
 import Login from '../login/Login'
 
-export class App extends React.Component {
-  render() {
+class App extends React.Component {
+  public render() {
     return (
-      // <Router>
+      <Router>
       <div className="center w85">
         <Header />
         <div className="ph3 pv1 background-gray">
@@ -24,9 +26,9 @@ export class App extends React.Component {
           </Switch>
         </div>
         </div>
-        // </Router>
+        </Router>
     );
   }
 }
 
-// export const AppWithStyles = withStyles(styles)(App);
+export default App;

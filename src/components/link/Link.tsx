@@ -6,7 +6,8 @@ import gql from 'graphql-tag'
 
 type Props = {
   link: any;
-  index: number
+  index: number;
+  updateStoreAfterVote: any
 };
 
 type Votes = {
@@ -43,9 +44,13 @@ class Link extends React.Component<Props> {
         <span className="gray">{this.props.index + 1}.</span>
           {authToken && (
             <Mutation mutation={VOTE_MUTATION}
-              variables={{ linkId: this.props.link.id }}>
+              variables={{ linkId: this.props.link.id }}
+              update={(store, { data: { vote } }) =>
+                this.props.updateStoreAfterVote(store, vote, this.props.link.id)
+            }>
+              
               {voteMutation => (
-                <div className="ml1 gray f11" style={{color: 'red'}} onClick={voteMutation}>
+                <div style={{color: 'red'}} onClick={voteMutation}>
                  upvote ▲
                 </div>
               )}
@@ -56,7 +61,7 @@ class Link extends React.Component<Props> {
           <div>
             {description} ({url})
           </div>
-          <div className="f6 lh-copy gray" style={{color: 'blue'}}>
+          <div style={{color: 'blue'}}>
             {this.props.link.votes.length} votes | by{' '}
             {this.props.link.postedBy
               ? this.props.link.postedBy.name

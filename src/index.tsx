@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import './styles/index.css';
-import { App } from './components/app/App';
+import App from './components/app/App';
 
 // jss
 import { ThemeProvider } from 'react-jss';
