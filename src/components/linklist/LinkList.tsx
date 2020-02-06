@@ -9,8 +9,19 @@ const FEED_QUERY = gql`
     feed {
       links {
         id
+        # createdAt
         url
         description
+        postedBy {
+          id
+          name
+        }
+        votes {
+          id
+          user {
+            id
+          }
+        }
       }
     }
   }
@@ -18,8 +29,9 @@ const FEED_QUERY = gql`
 
 interface Data {
   feed: {
-    links: Array<{ id: string;  url: string; description: string }>
+    links: Array<{ id: string; url: string; description: string; }>
   }
+  // index: number
 }
 
 type Response = {
@@ -28,6 +40,7 @@ type Response = {
 
 class LinkList extends React.Component {
   render() {
+   
     return (
       <Query<Data, Response> query={FEED_QUERY}>
         {({ loading, error, data }) => {
@@ -38,7 +51,9 @@ class LinkList extends React.Component {
     
           return (
             <div>
-              {linksToRender.map(link => <Link key={link.id} link={link} />)}
+              {linksToRender.map((link, index) => (
+                <Link key={link.id} link={link} index={index} />
+              ))}
             </div>
           )
         }}

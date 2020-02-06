@@ -1,8 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import './styles/index.css';
-import { AppWithStyles } from './components/app/App';
-import * as serviceWorker from './serviceWorker';
+import { App } from './components/app/App';
 
 // jss
 import { ThemeProvider } from 'react-jss';
@@ -15,12 +14,14 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 
 import { setContext } from 'apollo-link-context'
 
-// type Token = {
-//   token: string
-// }
+import { BrowserRouter } from 'react-router-dom'
+import { AUTH_TOKEN } from "./constants";
 
 const authLink = setContext((_, { headers }) => {
-  const token: string = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjazY4MzY4Z3hkNjl3MGIwOTRhaDQ4ZzZ4IiwiaWF0IjoxNTgwODMzMDM1fQ.CF5-qYJFnF7QDaPAVCqeHdAiCBjh5OJkNUZmgjiteKE`
+  if (!localStorage.getItem(AUTH_TOKEN)) {
+    return
+  }
+  const token = localStorage.getItem(AUTH_TOKEN)
   return {
     headers: {
       ...headers,
@@ -39,11 +40,13 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
+  <BrowserRouter>
   <ApolloProvider client={client}>
   <ThemeProvider theme={theme}>
-    <AppWithStyles />
+    <App />
     </ThemeProvider>
-  </ApolloProvider>
+    </ApolloProvider>
+  </BrowserRouter>
   , document.getElementById('root'));
-  
-  serviceWorker.unregister();
+    
+
