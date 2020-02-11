@@ -5,8 +5,12 @@ import { AUTH_TOKEN } from '../../constants'
 import classNames from 'classnames';
 
 import withStyles from 'react-jss';
-// import { styles } from './styles';
-import './header.css';
+import { styles } from './styles';
+// import './header.css';
+
+// export interface PropsType extends WithStyles<typeof styles> {
+//   className?: string;
+// }
 
 class Header extends React.Component<RouteComponentProps> {
   render() {
