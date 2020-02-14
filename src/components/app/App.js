@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import CreateLink from '../createlink/CreateLink';
-import LinkList from '../linklist/LinkList';
+import LinkList from '../link-list/LinkList';
 import Header from '../header/Header';
 import Login from '../login/Login';
 
@@ -21,13 +21,11 @@ const App = () => {
     <Router>
       <div className={classes.main}>
         <Header />
-        <div className="ph3 pv1 background-gray">
-          <Switch>
-            <Route exact path="/" component={LinkList} />
-            <Route exact path="/create" component={CreateLink} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/" component={LinkList} />
+          <Route exact path="/create" component={CreateLink} />
+          <Route exact path="/login" component={Login} />
+        </Switch>
       </div>
     </Router>
   );

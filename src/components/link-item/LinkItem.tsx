@@ -1,8 +1,12 @@
+import classnames from 'classnames';
 import * as React from "react";
 import { AUTH_TOKEN } from '../../constants'
 import { timeDifferenceForDate } from '../../utils'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+
+// import withStyles, { WithStyles } from 'react-jss';
+import { styles } from './styles';
 
 type Props = {
   link: any;
@@ -40,8 +44,9 @@ class Link extends React.Component<Props> {
     const authToken = localStorage.getItem(AUTH_TOKEN)
     return (
       <div className="flex mt2 items-start">
-        <div className="flex items-center">
+
         <span className="gray">{this.props.index + 1}.</span>
+        
           {authToken && (
             <Mutation mutation={VOTE_MUTATION}
               variables={{ linkId: this.props.link.id }}
@@ -56,8 +61,8 @@ class Link extends React.Component<Props> {
               )}
             </Mutation>
           )}
-        </div>
-        <div className="ml1">
+      
+
           <div>
             {description} ({url})
           </div>
@@ -72,7 +77,7 @@ class Link extends React.Component<Props> {
                 timeDifferenceForDate(this.props.link.createdAt) : 'no date'}
             </span>
           </div> 
-        </div>
+
       </div>
     )
   }

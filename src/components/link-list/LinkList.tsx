@@ -1,5 +1,5 @@
 import * as React from "react";
-import Link from '../link/Link'
+import LinkItem from '../link-item/LinkItem'
 
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -43,11 +43,11 @@ class LinkList extends React.Component {
           if (error) return <div>Error</div>
           const linksToRender = data.feed.links
           return (
-            <div>
+            <main>
               {linksToRender.map((link, index) => (
-                <Link key={link.id} link={link} index={index} updateStoreAfterVote={this._updateCacheAfterVote} />
+                <LinkItem key={link.id} link={link} index={index} updateStoreAfterVote={this._updateCacheAfterVote} />
               ))}
-            </div>
+            </main>
           )
         }}
       </Query>
