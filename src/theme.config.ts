@@ -41,6 +41,7 @@ const theme = {
   fontFamily: 'Larsseit, Helvetica Neue, Helvetica, Arial, sans-serif',
   fontFamilyMed: 'Larsseit_Medium, Helvetica Neue, Helvetica, Arial, sans-serif',
   fontFamilyBold: 'Larsseit_Bold, Helvetica Neue, Helvetica, Arial, sans-serif',
+  fontFamilyTest: 'Georgia, Time, serif',
   fontSize: {
     base: '15px',
     text: '16px',
