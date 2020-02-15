@@ -3,6 +3,10 @@ import { AUTH_TOKEN } from '../../constants';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import { ButtonPrimary } from '../button';
+// import { LinkBasic } from '../link';
+import { InputText } from '../input';
+
 const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $name: String!) {
     signup(email: $email, password: $password, name: $name) {
@@ -56,20 +60,20 @@ class Login extends Component {
         <h4 className="mv3">{login ? 'Login' : 'Sign Up'}</h4>
         <div className="flex flex-column">
           {!login && (
-            <input
+            <InputText
+              inputType="text"
               value={name}
               onChange={e => this.setState({ name: e.target.value })}
-              type="text"
               placeholder="Your name"
             />
           )}
-          <input
+          <InputText
             value={email}
             onChange={e => this.setState({ email: e.target.value })}
-            type="text"
+            type="email"
             placeholder="Your email address"
           />
-          <input
+          <InputText
             value={password}
             onChange={e => this.setState({ password: e.target.value })}
             type="password"
@@ -82,20 +86,12 @@ class Login extends Component {
             variables={{ email, password, name }}
             onCompleted={data => this._confirm(data)}
           >
-            {mutation => (
-              <div className="pointer mr2 button" style={{ background: 'pink' }} onClick={mutation}>
-                {login ? 'login' : 'create account'}
-              </div>
-            )}
+            {mutation => <ButtonPrimary onClick={mutation}>{login ? 'Login' : 'Create Account'}</ButtonPrimary>}
           </Mutation>
 
-          <button
-            className="pointer button"
-            style={{ padding: '1rem' }}
-            onClick={() => this.setState({ login: !login })}
-          >
-            {login ? 'need to create an account?' : 'already have an account?'}
-          </button>
+          <ButtonPrimary onClick={() => this.setState({ login: !login })}>
+            {login ? 'Need to create an account?' : 'Already have an account?'}
+          </ButtonPrimary>
         </div>
       </div>
     );

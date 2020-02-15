@@ -1,7 +1,7 @@
 Users:
 
 Daniel  //  daniel.deverell@gmail.com // dd2345
-
+John  //  john@gmail.com // dd2345
 
 
 Typescript implementation of How To GraphQL React Apollo tutorial with JSS style support.

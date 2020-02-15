@@ -3,7 +3,8 @@
 export const styles = theme => ({
   root: {
     display: 'block',
-    marginBottom: '0.75rem',
-    borderTop: '1px solid #555'
+    marginBottom: '1.5rem',
+    paddingTop: '0.5rem',
+    borderTop: '1px dotted #bbb',
   },
 });

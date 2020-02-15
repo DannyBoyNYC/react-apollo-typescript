@@ -1,15 +1,15 @@
-import * as React from "react";
-import { LinkItemBasic } from '../link-item'
+import * as React from 'react';
+import { LinkItemBasic } from '../link-item';
 
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
 
 export const FEED_QUERY = gql`
   {
     feed {
       links {
         id
-        # createdAt
+        createdAt
         url
         description
         postedBy {
@@ -25,32 +25,39 @@ export const FEED_QUERY = gql`
       }
     }
   }
-`
+`;
 
-const updateCacheAfterVote = (store, createVote, linkId) => {
-  const data = store.readQuery({ query: FEED_QUERY })
-  const votedLink = data.feed.links.find(link => link.id === linkId)
-  votedLink.votes = createVote.link.votes
-  store.writeQuery({ query: FEED_QUERY, data })
-}
+const _updateCacheAfterVote = (store, createVote, linkId) => {
+  console.log(linkId);
+  const data = store.readQuery({ query: FEED_QUERY });
+  const votedLink = data.feed.links.find(link => link.id === linkId);
+  votedLink.votes = createVote.link.votes;
+  store.writeQuery({ query: FEED_QUERY, data });
+};
 
 const LinkList = () => {
   return (
     <Query query={FEED_QUERY}>
       {({ loading, error, data }) => {
-        if (loading) return <div>Fetching</div>
-        if (error) return <div>Error</div>
-        const linksToRender = data.feed.links
+        if (loading) return <div>Fetching</div>;
+        if (error) return <div>Error</div>;
+        const linksToRender = data.feed.links;
         return (
           <main>
             {linksToRender.map((link, index) => (
-              <LinkItemBasic key={link.id} link={link} index={index} updateStoreAfterVote={updateCacheAfterVote} className={'root'} />
+              <LinkItemBasic
+                key={link.id}
+                link={link}
+                index={index}
+                updateStoreAfterVote={_updateCacheAfterVote}
+                className={'root'}
+              />
             ))}
           </main>
-        )
+        );
       }}
     </Query>
-  )
-}
+  );
+};
 
-export default LinkList
+export default LinkList;

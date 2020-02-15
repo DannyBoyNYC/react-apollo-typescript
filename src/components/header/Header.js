@@ -26,7 +26,7 @@ const login = () => {
 
 const logout = () => {
   localStorage.removeItem(AUTH_TOKEN);
-  this.props.history.push(`/`);
+  window.location.href = `/`;
 };
 
 const Header = () => {
