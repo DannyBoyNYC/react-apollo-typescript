@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import * as React from 'react';
-import withStyles, { WithStyles } from 'react-jss';
+import withStyles from 'react-jss';
 
 import { styles } from './styles';
 

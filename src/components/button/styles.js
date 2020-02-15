@@ -1,4 +1,4 @@
-import { ITheme } from '../../theme.config';
+// import { ITheme } from '../../theme.config';
 
 export const styles = theme => ({
   root: {

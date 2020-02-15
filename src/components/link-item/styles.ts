@@ -1,12 +1,9 @@
-import { ITheme } from '../../theme.config';
+// import { ITheme } from '../../theme.config';
 
 export const styles = theme => ({
   root: {
-    cursor: 'pointer',
     display: 'block',
-    textDecoration: 'none',
-    '&.inline': {
-      display: 'inline-block',
-    },
+    marginBottom: '0.75rem',
+    borderTop: '1px solid #555'
   },
 });

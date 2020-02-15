@@ -5,7 +5,7 @@ import { timeDifferenceForDate } from '../../utils'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 
-// import withStyles, { WithStyles } from 'react-jss';
+import withStyles from 'react-jss';
 import { styles } from './styles';
 
 type Props = {
@@ -37,21 +37,24 @@ const VOTE_MUTATION = gql`
     }
   }
 `
+// const Link = ({ description, url, postedBy, id, index, updateStoreAfterVote, classes, className, }) => {
+export const Link = (props) => {
 
-class Link extends React.Component<Props> {
-  render() {
-    const { description, url, postedBy } = this.props.link
-    const authToken = localStorage.getItem(AUTH_TOKEN)
+  const { description, url, postedBy, id, updateStoreAfterVote, createdAt, votes } = props.link
+  const { className } = props
+  const authToken = localStorage.getItem(AUTH_TOKEN)
+  
     return (
-      <div className="flex mt2 items-start">
-
-        <span className="gray">{this.props.index + 1}.</span>
+      // <div className={classnames(classes.root, classes[variation], className)} >
+      <div className={classnames(className)} >
+       
+        <span>Link number {props.index + 1}</span>
         
           {authToken && (
             <Mutation mutation={VOTE_MUTATION}
-              variables={{ linkId: this.props.link.id }}
+              variables={{ linkId: id }}
               update={(store, { data: { vote } }) =>
-                this.props.updateStoreAfterVote(store, vote, this.props.link.id)
+                updateStoreAfterVote(store, vote, id)
             }>
               
               {voteMutation => (
@@ -64,23 +67,25 @@ class Link extends React.Component<Props> {
       
 
           <div>
-            {description} ({url})
+            {description} | ({url})
           </div>
           <div style={{color: 'blue'}}>
-            {this.props.link.votes.length} votes | by{' '}
-            {this.props.link.postedBy
-              ? this.props.link.postedBy.name
-              : 'Unknown'}{' '}
+          {votes.length}{votes.length === 0 ? ` votes` : ' vote'}. Posted by:
+            {postedBy
+              ? postedBy.name
+              : ' unknown,'}{' '}
             {/* noop - createdAt is not returning any data!!! */}
-            <span style={{ color: 'aqua' }}>
-              {this.props.link.createdAt ?
-                timeDifferenceForDate(this.props.link.createdAt) : 'no date'}
+          <span>
+              On: 
+              {createdAt ?
+                timeDifferenceForDate(createdAt) : ' no date available'}
             </span>
           </div> 
 
       </div>
     )
-  }
+  
 }
 
-export default Link
+// export default Link
+export const LinkItemWithStyles = withStyles(styles)(Link);
