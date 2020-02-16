@@ -37,7 +37,7 @@ const Header = () => {
       <div className={classes.logo}>Hacker News</div>
       <LinkBasic href="/">View the Links</LinkBasic>
       <LinkBasic href="/create">Submit a Link</LinkBasic>
-
+      <LinkBasic href="/search">Search</LinkBasic>
       {authToken ? (
         <ButtonPrimary onClick={logout}>logout</ButtonPrimary>
       ) : (

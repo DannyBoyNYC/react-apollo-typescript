@@ -5,6 +5,7 @@ import CreateLink from '../createlink/CreateLink';
 import LinkList from '../link-list/LinkList';
 import Header from '../header/Header';
 import Login from '../login/Login';
+import Search from '../search/Search';
 
 import { createUseStyles } from 'react-jss';
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route exact path="/" component={LinkList} />
           <Route exact path="/create" component={CreateLink} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/search" component={Search} />
         </Switch>
       </div>
     </Router>
