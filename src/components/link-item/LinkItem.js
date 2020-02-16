@@ -59,7 +59,7 @@ export const Link = props => {
       <div>
         {votes.length}
         {votes.length === 0 ? ` votes` : ' vote'}. Posted by:
-        {postedBy ? postedBy.name : ' unknown,'} {/* noop - createdAt is not returning any data!!! */}
+        {postedBy ? postedBy.name : ' unknown,'}
         <span>{createdAt ? timeDifferenceForDate(createdAt) : ' no date available'}</span>
       </div>
     </div>
