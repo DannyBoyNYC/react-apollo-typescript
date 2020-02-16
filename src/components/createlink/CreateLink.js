@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { FEED_QUERY } from '../link-list/LinkList';
+
+import { ButtonPrimary } from '../button';
+import { InputText } from '../input';
 
 const POST_MUTATION = gql`
   mutation PostMutation($description: String!, $url: String!) {
@@ -13,50 +16,46 @@ const POST_MUTATION = gql`
   }
 `;
 
-class CreateLink extends Component {
-  state = {
-    description: '',
-    url: '',
+const CreateLink = props => {
+  const [description, setDescription] = useState('');
+  const [url, setUrl] = useState('');
+
+  const handleDescriptionChange = event => {
+    setDescription(event.target.value);
   };
 
-  render() {
-    const { description, url } = this.state;
-    return (
-      <div>
-        <div className="flex flex-column mt3">
-          <input
-            className="mb2"
-            value={description}
-            onChange={e => this.setState({ description: e.target.value })}
-            type="text"
-            placeholder="A description for the link"
-          />
-          <input
-            className="mb2"
-            value={url}
-            onChange={e => this.setState({ url: e.target.value })}
-            type="text"
-            placeholder="The URL for the link"
-          />
-        </div>
-        <Mutation
-          mutation={POST_MUTATION}
-          variables={{ description, url }}
-          onCompleted={() => this.props.history.push('/')}
-          update={(store, { data: { post } }) => {
-            const data = store.readQuery({ query: FEED_QUERY });
-            data.feed.links.unshift(post);
-            store.writeQuery({
-              query: FEED_QUERY,
-              data,
-            });
-          }}
-        >
-          {postMutation => <button onClick={postMutation}>Submit</button>}
-        </Mutation>
-      </div>
-    );
-  }
-}
+  const handleUrlChange = event => {
+    setUrl(event.target.value);
+  };
+
+  return (
+    <div>
+      <InputText
+        value={description}
+        onChange={handleDescriptionChange}
+        type="text"
+        placeholder="A description for the link"
+      />
+      <InputText value={url} onChange={handleUrlChange} type="text" placeholder="The URL for the link" />
+
+      <Mutation
+        mutation={POST_MUTATION}
+        variables={{ description, url }}
+        onCompleted={() => props.history.push('/')}
+        update={(store, { data: { post } }) => {
+          const data = store.readQuery({ query: FEED_QUERY });
+          data.feed.links.unshift(post);
+          store.writeQuery({
+            query: FEED_QUERY,
+            data,
+          });
+        }}
+      >
+        {postMutation => <ButtonPrimary onClick={postMutation}>Submit</ButtonPrimary>}
+      </Mutation>
+    </div>
+  );
+  // }
+};
 
 export default CreateLink;
