@@ -28,6 +28,14 @@ const VOTE_MUTATION = gql`
   }
 `;
 
+const DELETE_MUTATION = gql`
+  mutation DeleteMutation($linkId: ID!) {
+    deleteLink(linkId: $linkId) {
+      id
+    }
+  }
+`;
+
 export const Link = props => {
   const { description, url, postedBy, id, createdAt, votes } = props.link;
   const { classes, className } = props;
@@ -38,6 +46,16 @@ export const Link = props => {
       <span>
         Link number {props.index + 1}, ID: {id}
       </span>
+
+      {authToken && (
+        <Mutation mutation={DELETE_MUTATION} variables={{ linkId: id }}>
+          {deleteMutation => (
+            <div style={{ color: 'green' }} onClick={deleteMutation}>
+              X
+            </div>
+          )}
+        </Mutation>
+      )}
 
       {authToken && (
         <Mutation
