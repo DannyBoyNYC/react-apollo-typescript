@@ -6,7 +6,7 @@ import { LinkItemBasic } from '../link-item';
 import { ButtonPrimary } from '../button';
 import { InputText } from '../input';
 
-const Search = () => {
+const Search = props => {
   const [links, setLinks] = useState([]);
   const [filter, setFilter] = useState('');
 
@@ -49,6 +49,7 @@ const Search = () => {
         Search
         <InputText type="text" onChange={e => setFilter(e.target.value)} />
         <ButtonPrimary onClick={() => _executeSearch()}>Search</ButtonPrimary>
+        {/* {props.client} */}
       </div>
       {links.map((link, index) => (
         <LinkItemBasic key={link.id} link={link} index={index} />
